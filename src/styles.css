@@ -411,13 +411,14 @@ h1 {
     gap: 1rem;
   }
   .info-tabs-fixed {
-    width: 99vw;
+    width: 100%;
     left: 0;
     margin-left: 0;
     margin-right: 0;
+    max-width: inherit;
   }
   .info-tabs-fixed-content {
-    font-size: 1rem;
+    /* font-size: 1.15rem; */
     line-height: 1.4;
     padding: 1rem 0.5rem 1.2rem 0.5rem;
   }
