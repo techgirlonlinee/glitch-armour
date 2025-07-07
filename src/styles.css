@@ -40,6 +40,11 @@ body {
   align-items: center;
 }
 
+.hero .title img {
+  height: 500px;
+  z-index: 1;
+}
+
 .hero-content {
   display: flex;
   flex-direction: row;
@@ -441,7 +446,7 @@ h1 {
   .hero-text {
     padding-right: 0;
   }
-  img.g {
+  .hero .title img {
     height: 200px;
   }
   body {
