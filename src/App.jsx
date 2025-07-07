@@ -41,12 +41,14 @@ export default function App() {
       {/* HERO SECTION */}
       <section className="hero">
         <div className="title">
-          <img src="/G.png" alt="G" className="g" />
+          {/* <img src="/G.png" alt="G" className="g" /> */}
+          <img src="/glitch-armour/G.png" alt="G" />
           <h1>litch Armour</h1>
         </div>
         <div className="hero-content">
           <div className="hero-img">
-            <img src="/glitch-shield.png" alt="Glitchy Shield" />
+            {/* <img src="/glitch-shield.png" alt="Glitchy Shield" /> */}
+            <img src="/glitch-armour/glitch-shield.png" alt="Glitchy Shield" />
           </div>
           <div className="hero-text">
             <p className="intro">
