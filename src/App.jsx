@@ -42,7 +42,7 @@ export default function App() {
       <section className="hero">
         <div className="title">
           {/* <img src="/G.png" alt="G" className="g" /> */}
-          <img src="/glitch-armour/G.png" alt="G" />
+          <img src="/glitch-armour/G.png" alt="G" className="g" />
           <h1>litch Armour</h1>
         </div>
         <div className="hero-content">
