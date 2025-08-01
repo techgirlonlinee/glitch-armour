@@ -1,165 +1,242 @@
-import React, { useEffect, useRef } from 'react';
+import React, {useEffect, useRef} from "react";
 
-// New ASCII logic provided by the user
-const density = 'Ñ@#W$9876543210?!abc;:+=-,._ ';
+// Helper functions (no changes here)
+function map(value, fromMin, fromMax, toMin, toMax) {
+  return toMin + ((value - fromMin) * (toMax - toMin)) / (fromMax - fromMin);
+}
+
+function fract(x) {
+  return x - Math.floor(x);
+}
+
+const density = ";:+=-GLITCH,._▀▄▚▀3210?!abc;:+=-,.ARMOUR_▀▄▚▐─═0123.+? ";
+
 function getAsciiChar(coord, context) {
-  const { cols, frame } = context;
-  const { x, y } = coord;
-  const sign = y % 2 * 2 - 1;
-  const index = (cols + y + x * sign + frame) % density.length;
+  const {cols, elapsedTime, shimmerSpeed} = context;
+  const {x, y} = coord;
+
+  const sign = (y % 2) * 2 - 1;
+  const timeFactor = Math.floor(elapsedTime * shimmerSpeed);
+  const index = (cols + y + x * sign + timeFactor) % density.length;
+
   return density[index];
 }
 
-export default function Interstitial({ onComplete }) {
+export default function Interstitial({onComplete}) {
   const canvasRef = useRef(null);
-  // Store character states for the scatter animation
   const charStates = useRef([]);
+  const animationFrameId = useRef(null);
+  const hasFrozen = useRef(false);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext('2d');
-    let animationId;
+    const ctx = canvas.getContext("2d");
+    const fontSize = 16;
 
-    // --- Configuration ---
-    const fontSize = 14;
-    const scatterStartFrame = 60;  // 1 second at 60fps (60 frames)
-    const scatterDuration = 120;   // 2 seconds to scatter (120 frames)
+    // --- CONFIGURATION ---
+    const movementStartTime = 3000;
+    const fadeDuration = 500;
+    const shimmerSpeed = 0.02;
+    const scatterSpeed = 6.0;
 
-    // --- Resize and Initialization ---
+    // ==========================================================
+    // NEW KNOBS FOR THE INITIAL SCATTER FEEL
+    // ==========================================================
+    const jiggleDuration = 250; // How long the initial chaos lasts (in ms)
+    const jiggleIntensity = 4; // How "wild" the initial jiggle is (in pixels)
+
     const init = () => {
+      /* ... init function is unchanged ... */
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
       const cols = Math.floor(canvas.width / fontSize);
       const rows = Math.floor(canvas.height / fontSize);
       const centerX = canvas.width / 2;
       const centerY = canvas.height / 2;
-      
+
       charStates.current = [];
       for (let y = 0; y < rows; y++) {
         for (let x = 0; x < cols; x++) {
           const startX = x * fontSize;
           const startY = y * fontSize;
-          
-          // Mix radial direction with pure randomness for more chaotic scatter
           const dirX = startX - centerX;
           const dirY = startY - centerY;
-          const distance = Math.sqrt(dirX * dirX + dirY * dirY);
-          
-          // Base direction from center
-          const radialX = distance > 0 ? dirX / distance : 0;
-          const radialY = distance > 0 ? dirY / distance : 0;
-          
-          // Add lots of randomness to the direction
-          const randomAngle = Math.random() * Math.PI * 2; // Random angle
+          const radialDist = Math.sqrt(dirX * dirX + dirY * dirY);
+          const radialX = radialDist > 0 ? dirX / radialDist : 0;
+          const radialY = radialDist > 0 ? dirY / radialDist : 0;
+          const randomAngle = Math.random() * Math.PI * 2;
           const randomX = Math.cos(randomAngle);
           const randomY = Math.sin(randomAngle);
-          
-          // Mix radial and random directions (70% random, 30% radial)
-          const mixX = radialX * 0.3 + randomX * 0.7;
-          const mixY = radialY * 0.3 + randomY * 0.7;
-          
-          // Random speed with more variation
-          const speed = 10 + Math.random() * 20; // Random speed between 10-30
-          
+          const mixedX = radialX * 0.3 + randomX * 0.7;
+          const mixedY = radialY * 0.3 + randomY * 0.7;
+          const dirLength = Math.sqrt(mixedX * mixedX + mixedY * mixedY);
+          let normalizedX = 0,
+            normalizedY = 0;
+          if (dirLength > 0) {
+            normalizedX = mixedX / dirLength;
+            normalizedY = mixedY / dirLength;
+          }
+          const randomSpeedFactor = 0.8 + Math.random() * 0.7;
+
           charStates.current.push({
             x: startX,
             y: startY,
-            vx: mixX * speed,
-            vy: mixY * speed,
+            vx: normalizedX,
+            vy: normalizedY,
+            randomSpeedFactor: randomSpeedFactor,
+            frozenChar: null,
           });
         }
       }
+      hasFrozen.current = false;
     };
 
-    window.addEventListener('resize', init);
+    window.addEventListener("resize", init);
     init();
 
-    // --- Animation Loop ---
-    let frame = 0;
-    const animate = () => {
+    let startTime = null;
+    let lastTimestamp = 0;
+
+    const animate = (timestamp) => {
+      if (!startTime) {
+        startTime = timestamp;
+        lastTimestamp = timestamp;
+      }
+
+      const rawDeltaTime = timestamp - lastTimestamp;
+      lastTimestamp = timestamp;
+      const deltaTime = Math.min(rawDeltaTime, 32);
+
+      const elapsedTime = timestamp - startTime;
+      const hasMovementStarted = elapsedTime >= movementStartTime;
+
       const context = {
-        frame,
+        elapsedTime,
         cols: Math.floor(canvas.width / fontSize),
         rows: Math.floor(canvas.height / fontSize),
+        shimmerSpeed: shimmerSpeed,
       };
 
-      const isScattering = frame >= scatterStartFrame;
-      const scatterProgress = isScattering ? (frame - scatterStartFrame) / scatterDuration : 0;
-
-      // Keep opaque white background until scatter, then fade
-      if (!isScattering) {
-        // Canvas stays opaque white with backgroundColor CSS
-        canvas.style.opacity = '1';
-      } else {
-        // Fade the entire canvas (including white background) during scatter
-        const fadeProgress = 1 - Math.min(scatterProgress, 1);
-        canvas.style.opacity = fadeProgress;
+      if (hasMovementStarted && !hasFrozen.current) {
+        charStates.current.forEach((charState, i) => {
+          const gridY = Math.floor(i / context.cols);
+          const gridX = i % context.cols;
+          charState.frozenChar = getAsciiChar({x: gridX, y: gridY}, context);
+        });
+        hasFrozen.current = true;
       }
-      
-      // Clear just the content, not the background
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      ctx.font = `${fontSize}px monospace`;
-      ctx.fillStyle = '#222'; // Dark characters for white background
-      ctx.textBaseline = 'top';
+      if (hasMovementStarted) {
+        if (canvas.style.pointerEvents !== "none") {
+          canvas.style.pointerEvents = "none";
+        }
+      }
+
+      let backgroundAlpha = 1.0;
+      if (hasMovementStarted) {
+        const timeIntoMovement = elapsedTime - movementStartTime;
+        const fadeProgress = Math.min(timeIntoMovement / fadeDuration, 1.0);
+        backgroundAlpha = 1 - fadeProgress;
+      }
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      if (backgroundAlpha > 0) {
+        ctx.fillStyle = `rgba(255, 255, 255, ${backgroundAlpha})`;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+      }
+
+      ctx.textBaseline = "top";
+      let charactersOnScreen = 0;
 
       charStates.current.forEach((charState, i) => {
-        const y = Math.floor(i / context.cols);
-        const x = i % context.cols;
+        let char = hasFrozen.current
+          ? charState.frozenChar
+          : getAsciiChar(
+              {
+                x: Math.floor(i % context.cols),
+                y: Math.floor(i / context.cols),
+              },
+              context
+            );
 
-        const char = getAsciiChar({ x, y }, context);
-        
-        let posX = charState.x;
-        let posY = charState.y;
+        let displayX = charState.x;
+        let displayY = charState.y;
 
-        if (isScattering && scatterProgress < 1) {
-          // Apply velocity to scatter characters with exponential progression
-          const explosiveProgress = scatterProgress * scatterProgress * 100;
-          posX += charState.vx * explosiveProgress;
-          posY += charState.vy * explosiveProgress;
+        if (hasMovementStarted) {
+          // --- CONTINUOUS MOVEMENT (NO PAUSE) ---
+          const finalCharSpeed = scatterSpeed * charState.randomSpeedFactor;
+          charState.x += charState.vx * finalCharSpeed * (deltaTime / 16);
+          charState.y += charState.vy * finalCharSpeed * (deltaTime / 16);
+
+          displayX = charState.x;
+          displayY = charState.y;
+
+          // --- FADING JIGGLE LOGIC ---
+          const timeIntoMovement = elapsedTime - movementStartTime;
+          if (timeIntoMovement < jiggleDuration) {
+            // Jiggle factor goes from 1 down to 0
+            const jiggleFactor = 1 - timeIntoMovement / jiggleDuration;
+            displayX += (Math.random() - 0.5) * jiggleIntensity * jiggleFactor;
+            displayY += (Math.random() - 0.5) * jiggleIntensity * jiggleFactor;
+          }
         }
 
-        // Only draw characters that are still visible or haven't scattered yet
-        if (!isScattering || 
-            (posX > -fontSize && posX < canvas.width + fontSize &&
-             posY > -fontSize && posY < canvas.height + fontSize)) {
-          ctx.fillText(char, posX, posY);
+        if (
+          displayX > -fontSize &&
+          displayX < canvas.width + fontSize &&
+          displayY > -fontSize &&
+          displayY < canvas.height + fontSize
+        ) {
+          charactersOnScreen++;
+          const unicodeBlocks = "▀▄▚▐─═";
+          const glitchArmourLetters = "GLITCHARMOUR";
+          if (unicodeBlocks.includes(char)) {
+            ctx.fillStyle = "#00ff00";
+            ctx.font = `${fontSize}px monospace`;
+          } else if (glitchArmourLetters.includes(char)) {
+            ctx.fillStyle = "#222";
+            ctx.font = `bold ${fontSize}px monospace`;
+          } else {
+            ctx.fillStyle = "#222";
+            ctx.font = `${fontSize}px monospace`;
+          }
+          ctx.fillText(char, displayX, displayY);
         }
       });
 
-      // --- Completion ---
-      if (scatterProgress >= 1 && onComplete) {
-        cancelAnimationFrame(animationId);
-        onComplete();
+      if (hasMovementStarted && charactersOnScreen === 0) {
+        if (onComplete) onComplete();
         return;
       }
 
-      frame++;
-      animationId = requestAnimationFrame(animate);
+      animationFrameId.current = requestAnimationFrame(animate);
     };
 
-    animate();
+    animationFrameId.current = requestAnimationFrame(animate);
 
     return () => {
-      window.removeEventListener('resize', init);
-      cancelAnimationFrame(animationId);
+      window.removeEventListener("resize", init);
+      if (animationFrameId.current) {
+        cancelAnimationFrame(animationFrameId.current);
+      }
     };
   }, [onComplete]);
 
   return (
     <canvas
       ref={canvasRef}
-      className="ascii-canvas"
+      className='ascii-canvas'
       style={{
-        position: 'fixed',
+        position: "fixed",
         top: 0,
         left: 0,
-        width: '100%',
-        height: '100%',
+        width: "100%",
+        height: "100%",
         zIndex: 9999,
-        backgroundColor: 'white'
+        opacity: 1,
+        backgroundColor: "transparent",
       }}
     />
   );

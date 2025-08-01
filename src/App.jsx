@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { categories, tools } from "./data/tools";
+// Import React and hooks
+import React, {useState, useEffect, useCallback} from "react"; // 1. Import useCallback
+import {categories, tools} from "./data/tools";
 import CategoryList from "./components/CategoryList";
 import ToolCard from "./components/ToolCard";
 import GlitchGrid from "./components/GlitchGrid";
@@ -22,16 +23,16 @@ function useIsMobile(breakpoint = 700) {
 export default function App() {
   const [showInterstitial, setShowInterstitial] = useState(true);
   const [selected, setSelected] = useState(categories[0].name);
-  // For mobile: track expanded categories as an array
   const [expanded, setExpanded] = useState([]);
   const selectedCategory = categories.find((c) => c.name === selected);
   const isMobile = useIsMobile();
 
-  const handleInterstitialComplete = () => {
+  // 2. Wrap the function in useCallback with an empty dependency array.
+  // This makes the function STABLE across all re-renders.
+  const handleInterstitialComplete = useCallback(() => {
     setShowInterstitial(false);
-  };
+  }, []); // <-- The empty array is the key!
 
-  // Toggle expand/collapse for a category (mobile)
   function toggleCategory(catName) {
     setExpanded((prev) =>
       prev.includes(catName)
@@ -42,24 +43,26 @@ export default function App() {
 
   return (
     <div>
-      {/* ASCII Interstitial Overlay */}
-      {showInterstitial && <Interstitial onComplete={handleInterstitialComplete} />}
+      {/* 3. No change needed here! It will now receive the stable function. */}
+      {showInterstitial && (
+        <Interstitial onComplete={handleInterstitialComplete} />
+      )}
       <GlitchGrid />
 
+      {/* ... The rest of your component remains the same ... */}
+
       {/* HERO SECTION */}
-      <section className="hero">
-        <div className="title">
-          {/* <img src="/G.png" alt="G" className="g" /> */}
-          <img src="/G.png" alt="G" class="g" />
+      <section className='hero'>
+        <div className='title'>
+          <img src='/G.png' alt='G' class='g' />
           <h1>litch Armour</h1>
         </div>
-        <div className="hero-content">
-          <div className="hero-img">
-            {/* <img src="/glitch-shield.png" alt="Glitchy Shield" /> */}
-            <img src="/glitch-shield.png" alt="Glitchy Shield" />
+        <div className='hero-content'>
+          <div className='hero-img'>
+            <img src='/glitch-shield.png' alt='Glitchy Shield' />
           </div>
-          <div className="hero-text">
-            <p className="intro">
+          <div className='hero-text'>
+            <p className='intro'>
               Privacy isn’t hiding—it’s resistance, autonomy, and collective
               power in a world that wants you exposed.
               <br />
@@ -97,10 +100,10 @@ export default function App() {
       <InfoTabs />
 
       {/* TOOLKIT SECTION */}
-      <section className="toolkit">
+      <section className='toolkit'>
         {isMobile ? (
-          <div className="toolkit-mobile">
-            <div className="category-list-mobile">
+          <div className='toolkit-mobile'>
+            <div className='category-list-mobile'>
               {categories.map((cat, i) => (
                 <React.Fragment key={cat.name}>
                   <div
@@ -109,15 +112,15 @@ export default function App() {
                     }`}
                     onClick={() => toggleCategory(cat.name)}
                   >
-                    <span className="cat-num">
+                    <span className='cat-num'>
                       {String(i + 1).padStart(2, "0")}
                     </span>
-                    <span className="cat-name">{cat.name}</span>
+                    <span className='cat-name'>{cat.name}</span>
                   </div>
                   {expanded.includes(cat.name) && (
-                    <div className="category-mobile-details">
-                      <div className="category-desc">{cat.description}</div>
-                      <div className="tool-card-grid">
+                    <div className='category-mobile-details'>
+                      <div className='category-desc'>{cat.description}</div>
+                      <div className='tool-card-grid'>
                         {tools
                           .filter((t) => t.category === cat.name)
                           .map((tool) => (
@@ -137,11 +140,11 @@ export default function App() {
               selected={selected}
               setSelected={setSelected}
             />
-            <div className="toolkit-main">
-              <div className="category-desc">
+            <div className='toolkit-main'>
+              <div className='category-desc'>
                 {selectedCategory.description}
               </div>
-              <div className="tool-card-grid">
+              <div className='tool-card-grid'>
                 {tools
                   .filter((t) => t.category === selected)
                   .map((tool) => (
