@@ -4,6 +4,7 @@ import CategoryList from "./components/CategoryList";
 import ToolCard from "./components/ToolCard";
 import GlitchGrid from "./components/GlitchGrid";
 import InfoTabs from "./components/InfoTabs";
+import Interstitial from "./components/Interstitial";
 import "./styles.css";
 
 function useIsMobile(breakpoint = 700) {
@@ -19,11 +20,16 @@ function useIsMobile(breakpoint = 700) {
 }
 
 export default function App() {
+  const [showInterstitial, setShowInterstitial] = useState(true);
   const [selected, setSelected] = useState(categories[0].name);
   // For mobile: track expanded categories as an array
   const [expanded, setExpanded] = useState([]);
   const selectedCategory = categories.find((c) => c.name === selected);
   const isMobile = useIsMobile();
+
+  const handleInterstitialComplete = () => {
+    setShowInterstitial(false);
+  };
 
   // Toggle expand/collapse for a category (mobile)
   function toggleCategory(catName) {
@@ -36,6 +42,8 @@ export default function App() {
 
   return (
     <div>
+      {/* ASCII Interstitial Overlay */}
+      {showInterstitial && <Interstitial onComplete={handleInterstitialComplete} />}
       <GlitchGrid />
 
       {/* HERO SECTION */}

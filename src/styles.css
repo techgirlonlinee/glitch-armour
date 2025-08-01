@@ -19,6 +19,94 @@
   font-display: swap;
 }
 
+/* ========== INTERSTITIAL ========== */
+.interstitial {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #F7F7F7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+.ascii-canvas {
+  opacity: 0.3;
+}
+
+.interstitial-overlay {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  background: rgba(247, 247, 247, 0.8);
+  padding: 3rem;
+  border-radius: 1rem;
+  backdrop-filter: blur(2px);
+}
+
+.interstitial-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.interstitial-g {
+  height: 150px;
+  z-index: 1;
+}
+
+.interstitial-title {
+  font-family: VG5000;
+  font-size: 3rem;
+  letter-spacing: -2px;
+  margin: 0;
+  margin-left: -1rem;
+  margin-top: -2rem;
+  line-height: 2.5rem;
+  color: #403F3F;
+  z-index: 1;
+}
+
+.interstitial-tagline {
+  font-family: Karrik;
+  font-size: 1.1rem;
+  color: #666;
+  margin-top: 1rem;
+}
+
+.interstitial-tagline p {
+  margin: 0;
+}
+
+/* Mobile interstitial adjustments */
+@media (max-width: 768px) {
+  .interstitial-overlay {
+    padding: 2rem 1rem;
+  }
+  
+  .interstitial-g {
+    height: 120px;
+  }
+  
+  .interstitial-title {
+    font-size: 2.5rem;
+    line-height: 2rem;
+    margin-top: -1.5rem;
+  }
+  
+  .interstitial-tagline {
+    font-size: 1rem;
+  }
+}
+
 /* ========== BASE ========== */
 body {
   font-family: Karrik, 'Space Mono', monospace;
