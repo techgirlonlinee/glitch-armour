@@ -1,24 +1,21 @@
 export const categories = [
   {
     name: "Messenger",
-    description: `Your texts? Everyone’s reading them. Even "encrypted" apps like WhatsApp and iMessage, even Telegram—all are collecting metadata (who, when, and where you chat). Surveillance chic.`
-  },
+    description: `Messaging apps are the intimate threads connecting you to friends, family, and communities. Instagram Messenger isn't end-to-end encrypted, exposing conversations to Meta's data collection. Flip phones don't escape surveillance—cell networks still track your location and communication patterns. Even "encrypted" apps like WhatsApp and iMessage collect metadata about who, when, and where you chat. Surveillance chic. 
+A privacy-focused messenger is like a soundproof room with no windows, where conversations happen without leaving a trace.`  },
   {
     name: "Browser",
-    description: `Browsers are your window to the web—but they’re also prime tracking territory. Chrome, Safari, Edge—they’re all collecting data. Privacy browsers offer built-in defenses.`
-  },
+    description: `Browsers are the windows into your online world, revealing your clicks, preferences, and digital behavior. It's a prime tracking territory for corporations to build comprehensive profiles of your digital existence for every click, site visit, and search. A privacy-focused browser is a tool that creates a secure, encrypted environment that basically says nope to tracking, blocks sketchy scripts, and limits digital surveillance. It's basically your personal privacy knight of the online window.`},
   {
     name: "Browser Add-on",
     description: `Add-ons are like armor for your browser—blocking ads, trackers, and other data leeches. Essential if you want to actually keep your browsing private.`
   },
   {
     name: "Search Engine",
-    description: `Search engines (like Google, DuckDuckGo, Startpage) help you find information online. Google remembers every embarrassing thing you've ever searched. Forever. They're building a profile to monetize your interests, control what information you see, and how you access it.`
-  },
+    description: `Search engines are the gatekeepers of your digital curiosity. Google tracks every query, building a comprehensive profile of your interests, fears, and secrets. Your searches reveal more about you than you'd ever share intentionally. They build a profile to monetize your interests, control what information you see, and how you access it. A privacy-focused search engine blocks trackers so you can lurk in peace.` },
   {
     name: "VPN",
-    description: `Creates a private tunnel for your internet traffic. Hides your location and activity from your internet provider and snoops. Like wearing an invisibility cloak online. Browser "VPNs" are often just proxies.`
-  },
+    description: `Your digital footprint starts with your IP address—a unique identifier that reveals your online movements, location, and browsing habits. A VPN is a network tool that creates a secure, encrypted tunnel that masks your real IP, making you invisible to internet providers, trackers, and digital surveillance. AKA it's like an invisibility cloak for your online life.` },
   {
     name: "Email",
     description: `Gmail isn't reading your diary word-for-word anymore, but they're still deeply in your business. They map your social graph—who you email, when, how often—and track everything else (location, clicks) to build a detailed profile and target you with ads. It's surveillance capitalism: less about reading your mail, more about surveilling your entire life.`
@@ -57,21 +54,6 @@ export const categories = [
   export const tools = [
     // MESSENGERS
     {
-      name: "Element",
-      category: "Messenger",
-      labels: ["Free", "Open Source", "Decentralized"],
-      description:
-        "Decentralized messenger built on Matrix. Anyone can run a server—no single company controls your chats. Good for group organizing, not just private texting. Collective power, not platform lock-in.",
-      pros: [
-        "Federated: pick or run your own server, bridge to other platforms",
-        "Open protocol, strong encryption"
-      ],
-      cons: [
-        "Setup can be confusing, less polished UI than mainstream apps"
-      ],
-      link: "https://element.io"
-    },
-    {
       name: "Signal",
       category: "Messenger",
       labels: ["Free", "Open Source", "Centralized"],
@@ -85,7 +67,21 @@ export const categories = [
       ],
       link: "https://signal.org"
     },
-  
+    {
+      name: "Element",
+      category: "Messenger",
+      labels: ["Free", "Open Source", "Decentralized"],
+      description:
+        "Decentralized messenger built on Matrix. Anyone can run a server—no single company controls your chats. Good for group organizing, not just private texting. Collective power, not platform lock-in.",
+      pros: [
+        "Open protocol & federated: pick or run your own server & bridge to other platforms",
+      ],
+      cons: [
+        "Setup can be confusing, less polished UI than mainstream apps"
+      ],
+      link: "https://element.io"
+    },
+    
     // BROWSERS
     {
       name: "Firefox",
