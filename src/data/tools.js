@@ -81,7 +81,21 @@ A privacy-focused messenger is like a soundproof room with no windows, where con
       ],
       link: "https://element.io"
     },
-    
+    {
+      name: "Session",
+      category: "Messenger",
+      labels: ["Free", "Open Source", "Decentralized"],
+      description:
+        "Private messaging app that protects your metadata, encrypts your communications, and makes sure your messaging activities leave no digital trail behind.",
+      pros: [
+        "No collection of identifying information (IP addresses, user agents, device identifiers) and no phone number, email, or real identity required to create an account",
+      ],
+      cons: [
+        "Despite not needing a phone number to use the app, downloading it from the app store will expose users to some store related tracking. There is also smaller user base compared to mainstream messaging apps."
+      ],
+      link: "https://getsession.org/"
+    },
+
     // BROWSERS
     {
       name: "Firefox",
@@ -227,7 +241,34 @@ A privacy-focused messenger is like a soundproof room with no windows, where con
       ],
       link: "https://kagi.com/"
     },
-  
+    {
+    name: "MetaGer",
+    category: "Search Engine",
+    labels: ["Non-Profit", "Open Source"],
+    description:
+      "A metasearch engine run by a non-profit that doesn't create user profiles and minimizes data collection. One of the most privacy-respecting search engines currently",
+    pros: [
+      "Operated by non-profit association SUMA-EV committed to free knowledge access",
+      "No user profiling or creation of user profiles",
+      "IP addresses and user agents are not saved or shared for core search functionality",
+      "Anonymous statistics collected without cookies or tracking technologies",
+      "Search queries only kept for a few hours for display purposes",
+      "Transparent about all data collection practices",
+      "Offers additional privacy tools like anonymizing proxy",
+      "Clear explanation of user rights under GDPR",
+      "Map service doesn't store location data or search queries",
+      "Optional features are opt-in rather than default"
+    ],
+    cons: [
+      "Search queries are transmitted to third-party partners for metasearch results",
+      "Contact form data stored for 2 months",
+      "Payment data stored for 10 years for tax purposes (necessary but still long retention)",
+      "Website suma-ev.de stores IP, user-agent, and referrer for up to one week",
+      "Search suggestions feature requires storing a hash of IP and user data if enabled",
+      "Limited information about which third-party partners receive search queries"
+    ],
+    link: "https://metager.org/"
+  },
     // PASSWORD MANAGERS
     {
       name: "Bitwarden",
@@ -536,6 +577,34 @@ A privacy-focused messenger is like a soundproof room with no windows, where con
         "Can be less reliable than mainstream services"
       ],
       link: "https://meet.jit.si/"
-    }
+    },
+    {
+    name: "MiroTalk",
+    category: "Video Call",
+    labels: ["Free", "Peer-to-Peer"],
+    description:
+      "Peer-to-peer browser-based video calls with data from in call messaging and file sharing between users never routed through central servers.",
+    pros: [
+      "Easy to use with any OS, any connection-related data is removed when the call ends. If you decide to record your meeting, it will be stored locally in your browser, then downloaded to your device.",
+    ],
+    cons: [
+      "Option for ChatGPT integration, which if used, would cancel out their peer-to-peer only claim and would send information to external servers.",
+    ],
+    link: "https://p2p.mirotalk.com"
+  },
+  {
+    name: "Signal",
+    category: "Video Call",
+    labels: ["Free", "Open Source", "End-to-End Encrypted"],
+    description:
+      "Since 2024, Signal has offered call links, so you can invite other users to a call without having to create a group first. It's privacy-focused with end-to-end encryption.",
+    pros: [
+      "All calls and messages are end-to-end encrypted by default and all message histories are stored locally on user devices, not external servers.",
+    ],
+    cons: [
+      "Only for Signal app users. Third-party service integrations like YouTube & Spotify introduce some loopholes, subjecting users to those significantly more sus privacy policies.",
+    ],
+    link: "https://signal.org/"
+  }
   ];
  
