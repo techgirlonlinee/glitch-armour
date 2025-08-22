@@ -50,41 +50,41 @@ export default function App() {
         <div className="hero-content">
           <div className="hero-text">
             <h2>
-              <ScrambledText>
+              {/* <ScrambledText> */}
                 Privacy isn't hiding—it's resistance, autonomy, and collective
                 power in a world that wants you exposed.
-              </ScrambledText>
+              {/* </ScrambledText> */}
             </h2>
             <div className="intro">
-              <p><ScrambledText>
+              <p>
                 Big tech and governments collect your data, often without your
                 knowledge or consent. They sell you convenience, but you're the
                 product. Information asymmetry hits hardest if you're queer,
                 trans, a person of color, or otherwise marginalized.
-              </ScrambledText></p>
+              </p>
 
-              <p><ScrambledText>
+              <p>
                 Protest, speak out, or just exist outside the norm—your digital
                 trail can be weaponized: flagged at borders for supporting
                 Palestine, arrested for showing up, or targeted by police using
                 facial recognition at Pride. Data from period tracking apps has
                 led to arrests for those seeking abortions.
-              </ScrambledText></p>
+              </p>
 
-              <p><ScrambledText>
+              <p>
                 Even outside politics, your data shapes what you pay—companies use
                 your location and browsing habits to charge you more for the same
                 ride, flight, or product than someone else. Beyond surveillance,
                 your browsing and likes on platforms like Instagram are weaponized
                 to manipulate elections, revealing the insidious ways data is
                 used.
-              </ScrambledText></p>
+              </p>
 
-              <p><ScrambledText>
+              <p>
                 Your data lives forever—even if it feels harmless now, power
                 shifts, and what's safe today can be considered dangerous
                 tomorrow.
-              </ScrambledText></p>
+              </p>
             </div>
           </div>
         </div>

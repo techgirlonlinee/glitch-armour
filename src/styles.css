@@ -335,8 +335,9 @@ h1.a-letter {
 
 /* ========== TOOL CARD ========== */
 .tool-card {
-  border: 1px dashed #BFBFBF;
-  padding: 1.2rem 1.5rem;
+  /* border: 1px dashed #BFBFBF; */
+  border: 1.5px solid #1DFF1D;
+  padding: 1.5em 1.2rem;
   min-width: 280px;
   max-width: 340px;
   flex: 1 1 320px;
@@ -362,33 +363,56 @@ h1.a-letter {
 
 .tool-name {
   font-size: 2rem;
-  font-weight: 900;
+  font-weight: 500;
   margin: 0.2rem 0;
   font-family: VG5000;
   color: #222;
 }
 
+ul {
+  margin-left: 0 !important;
+}
+
 .tool-desc {
-  font-size: 1rem;
+  font-size: 1.1rem;
+  letter-spacing: 0.1%;
   margin: 0.2rem 0 0.5rem 0;
+  margin: 0;
   line-height: 1.35;
 }
 
 .tool-pros,
 .tool-cons {
   margin: 0.2rem 0 0.2rem 1rem;
+  /* margin: 0; */
   padding: 0;
-  font-size: 1rem;
+  font-size: 1.1rem;
 }
 
 .tool-pros .pro {
   color: #222;
-  list-style: disc;
+ 
 }
 
 .tool-cons .con {
-  color: #FF5619;
-  list-style: disc;
+  /* color: #FF5619; */
+  
+}
+/* --- custom plus/minus bullets for ToolCard --- */
+.tool-pros,
+.tool-cons {
+  list-style: none;        /* kill the default disc */
+  padding-left: 0;         /* pull list flush left */
+}
+
+.tool-pros .pro::before {
+  content: "( + ) ";         /* ✚  prefixed */
+  /* color: #1DFF1D;           */
+}
+
+.tool-cons .con::before {
+  content: "( - ) ";         /* ✖  prefixed */
+  /* color: #FF5619;          */
 }
 
 .tool-link {
