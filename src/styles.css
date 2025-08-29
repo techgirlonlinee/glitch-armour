@@ -506,12 +506,29 @@ ul {
   margin-bottom: 1rem !important;
 }
 
-.glossary-term {
+.glossary-term, .tldr {
   font-family: 'VG5000', monospace, sans-serif;
   font-size: 1.5rem;
   line-height: 1.35;
   /* letter-spacing: 0.01em; */
 }
+
+.gloss-tldr {
+  margin-top: 1rem !important;
+}
+
+a.tldr {
+  color: unset;
+  text-decoration: none;
+}
+
+  a.tldr {
+    color: #000; /* Black text color */
+    text-decoration: underline; /* Keep underline */
+    text-decoration-color: #1dff1d; /* Green underline color */
+    text-underline-offset: 2px; /* Optional: adjust underline position */
+  }
+
 
 .glossary-desc {
   margin-bottom: 2rem;

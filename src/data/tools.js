@@ -40,10 +40,10 @@ A privacy-focused messenger is like a soundproof room with no windows, where con
     name: "Collaborative Editor",
     description: `Secure document editors are like having a locked room for your thoughts. Google Docs encrypts your files while they're chilling on Google's servers, but they still get to peek unless you jump through extra hoops.`
   },
-  {
-    name: "File Manager",
-    description: `Self-hosted file managers let you run your own cloud—no Big Tech middleman, no surveillance. For people who want total control over their files and sharing.`
-  },
+  // {
+  //   name: "File Manager",
+  //   description: `Self-hosted file managers let you run your own cloud—no Big Tech middleman, no surveillance. For people who want total control over their files and sharing.`
+  // },
   {
     name: "Video Call",
     description: `Even with that shiny "end-to-end encryption," many platforms can still record and store your video calls. Encryption keeps the randos out, but the company hosting the call could still be taking notes and selling them. Google Meet might encrypt your video, but they're still scooping up your metadata (who, when, how long) and sniffing around for ad data. Zoom? They've leaked data and shared it with who-knows-who.`
@@ -246,26 +246,15 @@ A privacy-focused messenger is like a soundproof room with no windows, where con
     category: "Search Engine",
     labels: ["Non-Profit", "Open Source"],
     description:
-      "A metasearch engine run by a non-profit that doesn't create user profiles and minimizes data collection. One of the most privacy-respecting search engines currently",
+      "A metasearch engine run by a non-profit.  It doesn't track you, doesn't create profiles, and offers a built-in proxy to anonymously view search results.",
     pros: [
-      "Operated by non-profit association SUMA-EV committed to free knowledge access",
-      "No user profiling or creation of user profiles",
-      "IP addresses and user agents are not saved or shared for core search functionality",
-      "Anonymous statistics collected without cookies or tracking technologies",
-      "Search queries only kept for a few hours for display purposes",
-      "Transparent about all data collection practices",
-      "Offers additional privacy tools like anonymizing proxy",
-      "Clear explanation of user rights under GDPR",
-      "Map service doesn't store location data or search queries",
-      "Optional features are opt-in rather than default"
+      "Operated by a non-profit, not a corporation",
+      "No user profiling or tracking",
+      "Built-in anonymous web proxy for extra privacy"
     ],
     cons: [
-      "Search queries are transmitted to third-party partners for metasearch results",
-      "Contact form data stored for 2 months",
-      "Payment data stored for 10 years for tax purposes (necessary but still long retention)",
-      "Website suma-ev.de stores IP, user-agent, and referrer for up to one week",
-      "Search suggestions feature requires storing a hash of IP and user data if enabled",
-      "Limited information about which third-party partners receive search queries"
+      "Search queries are sent to other search engines to get results and it's unclear exactly who those third-party partners are",
+      "Some features (like suggestions) do require optional data storage"
     ],
     link: "https://metager.org/"
   },
@@ -307,10 +296,12 @@ A privacy-focused messenger is like a soundproof room with no windows, where con
       description:
         "Encrypted, Swiss-based email. Free tier available. Good for privacy, but limited storage unless you pay.",
       pros: [
-        "End-to-end encryption, Swiss privacy laws"
+        "End-to-end encryption, Swiss privacy laws",
+        "Uses the open PGP standard (good for interoperability)"
       ],
       cons: [
-        "Limited storage on free tier"
+        "Limited storage on free tier",
+         "Encrypting to non-Proton users is manual and clunky; requires using a shared password or the recipient already using PGP"
       ],
       link: "https://proton.me/mail"
     },
@@ -324,7 +315,8 @@ A privacy-focused messenger is like a soundproof room with no windows, where con
         "End-to-end encryption, green energy"
       ],
       cons: [
-        "Limited features on free tier"
+        "Limited features on free tier",
+        "You have to create a password for any emails you send to people who don't have a Tutanota account."
       ],
       link: "https://tutanota.com/"
     },
@@ -456,7 +448,7 @@ A privacy-focused messenger is like a soundproof room with no windows, where con
         "Decentralized, keeps data on your devices"
       ],
       cons: [
-        "Setup can be complex"
+        "Setup can be complex. It's for definitely for the more techy folks, but it's a powerhouse"
       ],
       link: "https://syncthing.net/"
     },
@@ -511,10 +503,11 @@ A privacy-focused messenger is like a soundproof room with no windows, where con
       description:
         "Fully encrypted, p2p sync, works offline. Notion vibes, but secure. Good for people who want it all.",
       pros: [
-        "Encrypted, p2p sync, offline"
+        "Encrypted, p2p sync option, offline"
       ],
       cons: [
-        "May be overkill for simple notes"
+        "May be overkill for simple notes",
+        "P2P sync isn't automatic yet. Forget to manually sync before you leave your network, and your notes get stuck in limbo."
       ],
       link: "https://anytype.io/"
     },
@@ -548,20 +541,20 @@ A privacy-focused messenger is like a soundproof room with no windows, where con
       ],
       link: "https://etherpad.org/"
     },
-    {
-      name: "Fileverse",
-      category: "File Manager",
-      labels: ["Free", "Open Source", "Self-Hosted"],
-      description:
-        "Open-source, self-hosted file manager. Run your own Google Drive. For people who want total control.",
-      pros: [
-        "Open-source, self-hosted"
-      ],
-      cons: [
-        "Requires technical setup"
-      ],
-      link: "https://fileverse.io/"
-    },
+    // {
+    //   name: "Fileverse",
+    //   category: "File Manager",
+    //   labels: ["Free", "Open Source", "Self-Hosted"],
+    //   description:
+    //     "Open-source, self-hosted file manager. Run your own Google Drive. For people who want total control.",
+    //   pros: [
+    //     "Open-source, self-hosted"
+    //   ],
+    //   cons: [
+    //     "Kind of niche and requires technical setup"
+    //   ],
+    //   link: "https://fileverse.io/"
+    // },
   
     // VIDEO CALLING
     {
@@ -571,10 +564,10 @@ A privacy-focused messenger is like a soundproof room with no windows, where con
       description:
         "End-to-end encrypted, open-source video calls. No account needed. Community-audited, but can be glitchy.",
       pros: [
-        "Strong encryption, no account, open-source"
+        "End-to-end encrypted, no account needed, you can even host your own server for total control."
       ],
       cons: [
-        "Can be less reliable than mainstream services"
+        "Video quality and connection stability depend on who's hosting the server. The public free servers can sometimes be overloaded or slow."
       ],
       link: "https://meet.jit.si/"
     },
