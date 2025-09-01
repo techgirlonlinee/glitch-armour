@@ -36,23 +36,18 @@ export default function Interstitial({onComplete}) {
     const fontSize = 16;
 
     // --- CONFIGURATION ---
-    const movementStartTime = 3000;
+    const movementStartTime = 2000;
     const fadeDuration = 500;
     const shimmerSpeed = 0.02;
     const scatterSpeed = 6.0;
 
-    // ==========================================================
-    // NEW KNOBS FOR THE INITIAL SCATTER FEEL
-    // ==========================================================
-    const jiggleDuration = 250; // How long the initial chaos lasts (in ms)
-    const jiggleIntensity = 4; // How "wild" the initial jiggle is (in pixels)
 
     const init = () => {
       /* ... init function is unchanged ... */
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      const cols = Math.floor(canvas.width / fontSize);
-      const rows = Math.floor(canvas.height / fontSize);
+      canvas.width = document.documentElement.clientWidth;
+      canvas.height = document.documentElement.clientHeight;
+      const cols = Math.ceil(canvas.width / fontSize);
+      const rows = Math.ceil(canvas.height / fontSize);
       const centerX = canvas.width / 2;
       const centerY = canvas.height / 2;
 
@@ -114,8 +109,8 @@ export default function Interstitial({onComplete}) {
 
       const context = {
         elapsedTime,
-        cols: Math.floor(canvas.width / fontSize),
-        rows: Math.floor(canvas.height / fontSize),
+        cols: Math.ceil(canvas.width / fontSize),
+        rows: Math.ceil(canvas.height / fontSize),
         shimmerSpeed: shimmerSpeed,
       };
 
@@ -148,7 +143,11 @@ export default function Interstitial({onComplete}) {
       }
 
       ctx.textBaseline = "top";
-      let charactersOnScreen = 0;
+
+      const nextCharStates = [];
+      const greenChars = [];
+      const boldChars = [];
+      const regularChars = [];
 
       charStates.current.forEach((charState, i) => {
         let char = hasFrozen.current
@@ -161,52 +160,47 @@ export default function Interstitial({onComplete}) {
               context
             );
 
-        let displayX = charState.x;
-        let displayY = charState.y;
-
         if (hasMovementStarted) {
-          // --- CONTINUOUS MOVEMENT (NO PAUSE) ---
           const finalCharSpeed = scatterSpeed * charState.randomSpeedFactor;
           charState.x += charState.vx * finalCharSpeed * (deltaTime / 16);
           charState.y += charState.vy * finalCharSpeed * (deltaTime / 16);
-
-          displayX = charState.x;
-          displayY = charState.y;
-
-          // --- FADING JIGGLE LOGIC ---
-          const timeIntoMovement = elapsedTime - movementStartTime;
-          if (timeIntoMovement < jiggleDuration) {
-            // Jiggle factor goes from 1 down to 0
-            const jiggleFactor = 1 - timeIntoMovement / jiggleDuration;
-            displayX += (Math.random() - 0.5) * jiggleIntensity * jiggleFactor;
-            displayY += (Math.random() - 0.5) * jiggleIntensity * jiggleFactor;
-          }
         }
 
-        if (
-          displayX > -fontSize &&
-          displayX < canvas.width + fontSize &&
-          displayY > -fontSize &&
-          displayY < canvas.height + fontSize
-        ) {
-          charactersOnScreen++;
+        const {x, y} = charState;
+
+        if (x > -fontSize && x < canvas.width && y > -fontSize && y < canvas.height) {
           const unicodeBlocks = "▀▄▚▐─═";
           const glitchArmourLetters = "GLITCHARMOUR";
+
           if (unicodeBlocks.includes(char)) {
-            ctx.fillStyle = "#00ff00";
-            ctx.font = `${fontSize}px monospace`;
+            greenChars.push({char, x, y});
           } else if (glitchArmourLetters.includes(char)) {
-            ctx.fillStyle = "#222";
-            ctx.font = `bold ${fontSize}px monospace`;
+            boldChars.push({char, x, y});
           } else {
-            ctx.fillStyle = "#222";
-            ctx.font = `${fontSize}px monospace`;
+            regularChars.push({char, x, y});
           }
-          ctx.fillText(char, displayX, displayY);
+          nextCharStates.push(charState);
         }
       });
 
-      if (hasMovementStarted && charactersOnScreen === 0) {
+      // Draw green chars
+      ctx.fillStyle = "#00ff00";
+      ctx.font = `${fontSize}px monospace`;
+      greenChars.forEach(({char, x, y}) => ctx.fillText(char, x, y));
+
+      // Draw bold chars
+      ctx.fillStyle = "#222";
+      ctx.font = `bold ${fontSize}px monospace`;
+      boldChars.forEach(({char, x, y}) => ctx.fillText(char, x, y));
+
+      // Draw regular chars
+      ctx.fillStyle = "#222";
+      ctx.font = `${fontSize}px monospace`;
+      regularChars.forEach(({char, x, y}) => ctx.fillText(char, x, y));
+
+      charStates.current = nextCharStates;
+
+      if (hasMovementStarted && charStates.current.length === 0) {
         if (onComplete) onComplete();
         return;
       }

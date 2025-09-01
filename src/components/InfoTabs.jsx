@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useRef, useEffect} from "react";
 
 const TABS = [
   {
@@ -376,24 +376,6 @@ const TABS = [
         <dt class='gloss-tldr'>
           <a
             class='tldr'
-            href='https://pmc.ncbi.nlm.nih.gov/articles/PMC9676107/'
-            target='_blank'
-            rel='noopener'
-          >
-            Equitable Design and Use of Digital Surveillance Technologies During
-            COVID-19
-          </a>
-        </dt>
-        <dd>
-          An academic review analyzing the ethical norms and concerns of digital
-          contact tracing. It identifies 11 norms for equitable design and
-          implementation, and major concerns including digital divides, stigma,
-          surveillance creep, and the erosion of public trust.
-        </dd>
-
-        <dt class='gloss-tldr'>
-          <a
-            class='tldr'
             href='https://www.sciencedirect.com/science/article/pii/S2352340925001398'
             target='_blank'
             rel='noopener'
@@ -425,6 +407,24 @@ const TABS = [
           leaving consumers vulnerable to privacy invasion and discrimination
           with little recourse.
         </dd>
+
+        <dt class='gloss-tldr'>
+          <a
+            class='tldr'
+            href='https://fightchatcontrol.eu/'
+            target='_blank'
+            rel='noopener'
+          >
+            The EU (still) wants to scan your private messages and photos
+          </a>
+        </dt>
+        <dd>
+          Every photo, every message, every file you send will be automatically
+          scanned—without your consent or suspicion. It is mass surveillance
+          imposed on all 450 million citizens of the European Union, while EU
+          politicians exempt themselves from this surveillance under
+          "professional secrecy" rules.
+        </dd>
       </dl>
     ),
   },
@@ -432,9 +432,26 @@ const TABS = [
 
 export default function InfoTabsFixed() {
   const [active, setActive] = useState(null);
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(event.target)
+      ) {
+        setActive(null);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [containerRef]);
 
   return (
-    <div className='info-tabs-fixed'>
+    <div className='info-tabs-fixed' ref={containerRef}>
       <div className='info-tabs-fixed-row'>
         {TABS.map((tab) => (
           <button
