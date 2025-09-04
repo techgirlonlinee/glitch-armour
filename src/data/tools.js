@@ -541,20 +541,20 @@ A privacy-focused messenger is like a soundproof room with no windows, where con
       ],
       link: "https://etherpad.org/"
     },
-    // {
-    //   name: "Fileverse",
-    //   category: "File Manager",
-    //   labels: ["Free", "Open Source", "Self-Hosted"],
-    //   description:
-    //     "Open-source, self-hosted file manager. Run your own Google Drive. For people who want total control.",
-    //   pros: [
-    //     "Open-source, self-hosted"
-    //   ],
-    //   cons: [
-    //     "Kind of niche and requires technical setup"
-    //   ],
-    //   link: "https://fileverse.io/"
-    // },
+    {
+      name: "Fileverse",
+      category: "Collaborative Editor",
+      labels: ["Free", "Open Source", "Self-Hosted"],
+      description:
+        "Open-source, self-hosted file manager. Run your own Google Drive. For people who want total control.",
+      pros: [
+        "Open-source, self-hosted"
+      ],
+      cons: [
+        "Kind of niche and requires technical setup"
+      ],
+      link: "https://fileverse.io/"
+    },
   
     // VIDEO CALLING
     {
