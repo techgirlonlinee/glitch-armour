@@ -26,8 +26,8 @@ const TABS = [
           networks. The more we look out for each other, the less control these
           systems and frameworks have. We appreciate feedback, requests, and
           contributions—
-          <a href='mailto:glitcharmour@proton.me'>email us</a> if you want to add
-          something.
+          <a href='mailto:glitcharmour@proton.me'>email us</a> if you want to
+          add something.
         </p>
       </>
     ),
@@ -277,7 +277,7 @@ const TABS = [
             EDRI: All Eyes on my Period?
           </a>
         </dt>
-        <dd>
+        <dd class='glossary-desc'>
           Privacy International's 2024 technical investigation into eight
           popular period-tracking apps. It found that while direct sharing of
           menstrual data with Facebook had stopped, many apps still integrated
@@ -296,7 +296,7 @@ const TABS = [
           </a>{" "}
           (PDF)
         </dt>
-        <dd>
+        <dd class='glossary-desc'>
           An analysis of the weak U.S. data privacy landscape, explaining why
           period trackers are not covered by HIPAA and how app data can be
           subpoenaed by law enforcement or sold to third parties, creating risks
@@ -314,7 +314,7 @@ const TABS = [
           </a>{" "}
           (PDF)
         </dt>
-        <dd>
+        <dd class='glossary-desc'>
           The official annual report from the European Data Protection Board,
           detailing its activities, including issuing guidelines on the ePrivacy
           Directive and processing based on legitimate interests, and providing
@@ -331,7 +331,7 @@ const TABS = [
             Open Letter: Ban Biometric Surveillance
           </a>
         </dt>
-        <dd>
+        <dd class='glossary-desc'>
           A call from 177+ civil society groups for a global ban on biometric
           recognition technologies in public spaces, arguing they enable mass
           and discriminatory surveillance that undermines human rights and
@@ -348,7 +348,7 @@ const TABS = [
             EPIC: Privacy & Racial Justice
           </a>
         </dt>
-        <dd>
+        <dd class='glossary-desc'>
           Documents how data abuse and surveillance disproportionately target
           and harm Black and Brown communities, detailing the use of flawed
           facial recognition, automated decision-making tools, and social media
@@ -365,7 +365,7 @@ const TABS = [
             The Trojan Horse: Digital Health & Human Rights
           </a>
         </dt>
-        <dd>
+        <dd class='glossary-desc'>
           Argues that the rapid scale-up of digital health tools, often promoted
           by UN agencies, can act as a "trojan horse" for expanded state
           surveillance, malicious targeting, corporate data exploitation, and
@@ -384,7 +384,7 @@ const TABS = [
             Elections
           </a>
         </dt>
-        <dd>
+        <dd class='glossary-desc'>
           Presents a dataset of 10,000 tweets and 411 Facebook posts from the
           Italian digital political sphere, collected to enable research on
           misinformation, foreign interference, and voter engagement patterns
@@ -401,7 +401,7 @@ const TABS = [
             The GDPR and Online Algorithmic Pricing: A Critical Look
           </a>
         </dt>
-        <dd>
+        <dd class='glossary-desc'>
           Analyzes a major loophole in EU data protection law, finding that
           "affinity-based" personalized pricing often circumvents the GDPR,
           leaving consumers vulnerable to privacy invasion and discrimination
@@ -418,12 +418,70 @@ const TABS = [
             The EU (still) wants to scan your private messages and photos
           </a>
         </dt>
-        <dd>
+        <dd class='glossary-desc'>
           Every photo, every message, every file you send will be automatically
           scanned—without your consent or suspicion. It is mass surveillance
           imposed on all 450 million citizens of the European Union, while EU
           politicians exempt themselves from this surveillance under
           "professional secrecy" rules.
+        </dd>
+
+        <dt className='gloss-title'>Books & Articles</dt>
+
+        <dd className='glossary-desc'>
+          For anyone interested in the two main texts that inspired this
+          project:
+        </dd>
+
+        <dt class='gloss-tldr'>
+          <a
+            class='tldr'
+            href='https://www.legacyrussell.com/GLITCHFEMINISM'
+            target='_blank'
+            rel='noopener'
+          >
+            Glitch Feminism: A Manifesto x Legacy Russell
+          </a>
+        </dt>
+        <dd class='glossary-desc'>
+          "In a society that conditions the public to find discomfort or
+          outright fear in the errors and malfunctions of our socio-cultural
+          mechanics—illicitly and implicitly encouraging an ethos of 'Don’t rock
+          the boat!'—a 'glitch' becomes an apt metonym. Glitch Feminism,
+          however, embraces the causality of 'error', and turns the gloomy
+          implication of glitch on its ear by acknowledging that an error in a
+          social system that has already been disturbed by economic, racial,
+          social, sexual, and cultural stratification and the imperialist
+          wrecking-ball of globalization—processes that continue to enact
+          violence on all bodies—may not, in fact, be an error at all, but
+          rather a much-needed erratum. This glitch is a correction to the
+          'machine', and, in turn, a positive departure."
+        </dd>
+
+        <dt class='gloss-tldr'>
+          <a
+            class='tldr'
+            href='https://ideaspace.ystrickler.com/p/the-dark-forest-theory-of-the-internet'
+            target='_blank'
+            rel='noopener'
+          >
+            The Dark Forest Theory of the Internet x Yancey Strickler
+          </a>
+        </dt>
+
+        <dd class='glossary-desc'>
+          "The internet of today is a battleground. The idealism of the ‘90s web
+          is gone. The Web 2.0 utopia — where we all lived in rounded filter
+          bubbles of happiness —ended with the 2016 Presidential election when
+          we learned that the tools we thought were only life-giving could be
+          weaponized as well. The public and semi-public spaces we created to
+          develop our identities, cultivate communities, and gain in knowledge
+          were overtaken by forces using them to gain power of various kinds
+          (market, political, social, and so on). This is the atmosphere of the
+          mainstream web today: a relentless competition for power. As this
+          competition has grown in size and ferocity, an increasing number of
+          the population has scurried into their dark forests to avoid the
+          fray."
         </dd>
       </dl>
     ),
