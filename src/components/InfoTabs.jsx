@@ -26,7 +26,7 @@ const TABS = [
           networks. The more we look out for each other, the less control these
           systems and frameworks have. We appreciate feedback, requests, and
           contributions—
-          <a href='mailto:araya@hey.com'>email us</a> if you want to add
+          <a href='mailto:glitcharmour@proton.me'>email us</a> if you want to add
           something.
         </p>
       </>
