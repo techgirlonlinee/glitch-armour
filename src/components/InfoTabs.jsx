@@ -29,6 +29,10 @@ const TABS = [
           <a href='mailto:glitcharmour@proton.me'>email us</a> if you want to
           add something.
         </p>
+        <p>
+          This project is done in collaboration with 
+          <a href='https://winprivacy.org'> womxn in web3privacy</a>, a collective that diversifies web3 privacy beyond echo chambers and builds the infrastrctures for a more inclusive privacy movement through research, mentorship, funding, visibility, and training led by and for womxn.
+        </p>
       </>
     ),
   },
