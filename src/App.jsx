@@ -143,7 +143,11 @@ export default function App() {
 
 			<div className="visit-count">
 				<p className="visit-count-line">
-					<VisitCounter /> since launch. Last updated 12/01/2026
+					<img
+						alt="Hits"
+						src="https://hits.sh/glitcharmour.org.svg?style=for-the-badge&label=visits&extraCount=5000&color=1dff1d&labelColor=ededed"
+					/>
+					{/* Last updated 12/01/2026 */}
 				</p>
 			</div>
 		</div>

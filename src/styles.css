@@ -569,6 +569,9 @@ a.tldr {
 		margin: 5rem 2rem;
 		width: auto;
 	}
+	p.visit-count-line {
+		margin-right: 2rem;
+	}
 }
 
 @media (max-width: 1030px) {
