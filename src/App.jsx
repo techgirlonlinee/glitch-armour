@@ -5,6 +5,7 @@ import GlitchGrid from "./components/GlitchGrid";
 import InfoTabs from "./components/InfoTabs";
 import Interstitial from "./components/Interstitial";
 import { ScrambledText } from "./components/ScrambleProvider";
+import VisitCounter from "./components/VisitCounter";
 import "./styles.css";
 
 export default function App() {
@@ -28,6 +29,9 @@ export default function App() {
 			{showInterstitial && (
 				<Interstitial onComplete={handleInterstitialComplete} />
 			)}
+			{/* {showInterstitial && (
+				<VisitCounter onComplete={handleInterstitialComplete} />
+			)} */}
 			<GlitchGrid />
 
 			{/* HERO SECTION */}
@@ -136,6 +140,12 @@ export default function App() {
 					))}
 				</div>
 			</section>
+
+			<div className="visit-count">
+				<p className="visit-count-line">
+					<VisitCounter /> since launch. Last updated 12/01/2026
+				</p>
+			</div>
 		</div>
 	);
 }

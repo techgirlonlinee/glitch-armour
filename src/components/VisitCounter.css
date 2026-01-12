@@ -1,0 +1,22 @@
+/* .visit-count {
+	position: relative;
+	bottom: 10px;
+	left: -50%;
+	transform: translateX(-50%);
+} */
+.visit-counter {
+	/* font-size: 0.85rem;
+	color: #888;
+	letter-spacing: 0.03em; */
+	padding-right: 0.25rem;
+}
+
+p.visit-count-line {
+	/* position: relative;
+	bottom: 10px;
+	left: -50%;
+	transform: translateX(-50%); */
+	display: flex;
+	justify-content: center;
+	color: #676767;
+}
